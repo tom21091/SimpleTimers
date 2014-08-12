@@ -1,0 +1,40 @@
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+startTimer                    KEYWORD2
+stopTimer                    KEYWORD2
+setTimerPeriod            KEYWORD2
+timerReset                  KEYWORD2
+attachTimerInterrupt     KEYWORD2
+detachTimerInterrupt     KEYWORD2
+disableTimerInterrupt    KEYWORD2
+enableTimerInterrupt     KEYWORD2
+startPWM                   KEYWORD2
+stopPWM                    KEYWORD2
+setDutyCycle               KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+TIMER1	LITERAL1
+TIMER2     LITERAL1
+TIMER3     LITERAL1
+TIMER4	LITERAL1
+TIMER5	LITERAL1
+TIMER23	LITERAL1
+TIMER45	LITERAL1
+OC1	        LITERAL1
+OC2	        LITERAL1
+OC3	        LITERAL1
+OC4	        LITERAL1
+OC5	        LITERAL1
