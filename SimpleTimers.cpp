@@ -78,53 +78,53 @@ void startTimer(uint8_t timerNum, long microseconds){
 	if (timerNum < 7){
 		switch (timerNum){
 			case(TIMER1):
-				if(cycles < MAX16BIT)              OpenTimer1(T1_ON | T1_IDLE_CON | T1_PS_1_1, cycles-1);           	// No prescale
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer1(T1_ON | T1_IDLE_CON | T1_PS_1_8, cycles-1);      	// Prescale by /8 
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer1(T1_ON | T1_IDLE_CON | T1_PS_1_64, cycles-1);   	// Prescale by /64
-				else if((cycles >>= 2) < MAX16BIT) OpenTimer1(T1_ON | T1_IDLE_CON | T1_PS_1_256, cycles-1); 	// Prescale by /256
-				else        cycles = 65535, OpenTimer1(T1_ON | T1_IDLE_CON | T1_PS_1_256, cycles); 				// Max period
+				if(cycles < MAX16BIT)              T1CON=(~T_ON & PS_1_1), PR1=cycles-1, T1CONSET=T_ON;  	// No prescale
+				else if((cycles >>= 3) < MAX16BIT) T1CON=(~T_ON & PS_1_8), PR1=cycles-1, T1CONSET=T_ON;      	// Prescale by /8 
+				else if((cycles >>= 3) < MAX16BIT) T1CON=(~T_ON & PS_1_64), PR1=cycles-1, T1CONSET=T_ON;   	// Prescale by /64
+				else if((cycles >>= 2) < MAX16BIT) T1CON=(~T_ON & PS_1_256), PR1=cycles-1, T1CONSET=T_ON; 	// Prescale by /256
+				else        					   T1CON=(~T_ON &  PS_1_256), PR1=MAX16BIT-1, T1CONSET=T_ON; 				// Max period
 				break;
 			case(TIMER2):
-				if(cycles < MAX16BIT)             		OpenTimer2(T2_ON | T2_IDLE_CON | T2_PS_1_1, cycles-1);        	// No prescale
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer2(T2_ON | T2_IDLE_CON | T2_PS_1_8, cycles-1);         	// Prescale by /8 
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer2(T2_ON | T2_IDLE_CON | T2_PS_1_64, cycles-1);   		// Prescale by /64
-				else if((cycles >>= 2) < MAX16BIT) OpenTimer2(T2_ON | T2_IDLE_CON | T2_PS_1_256, cycles-1);    	// Prescale by /256
-				else        cycles = MAX16BIT - 1, 		OpenTimer2(T2_ON | T2_IDLE_CON | T2_PS_1_256, cycles);	// Max period
+				if(cycles < MAX16BIT)              T2CON=(~T_ON & PS_1_1), PR2=cycles-1, T2CONSET=T_ON;   	// No prescale
+				else if((cycles >>= 3) < MAX16BIT) T2CON=(~T_ON & PS_1_8), PR2=cycles-1, T2CONSET=T_ON;         	// Prescale by /8 
+				else if((cycles >>= 3) < MAX16BIT) T2CON=(~T_ON & PS_1_64), PR2=cycles-1, T2CONSET=T_ON;   		// Prescale by /64
+				else if((cycles >>= 2) < MAX16BIT) T2CON=(~T_ON & PS_1_256), PR2=cycles-1, T2CONSET=T_ON;    	// Prescale by /256
+				else        					   T2CON=(~T_ON & PS_1_256), PR2=MAX16BIT-1, T2CONSET=T_ON;	// Max period
 				break;
 			case(TIMER3):
-				if(cycles < MAX16BIT)             		OpenTimer3(T3_ON | T3_IDLE_CON | T3_PS_1_1, cycles-1);         // No prescale
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer3(T3_ON | T3_IDLE_CON | T3_PS_1_8, cycles-1);          // Prescale by /8 
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer3(T3_ON | T3_IDLE_CON | T3_PS_1_64, cycles-1);   	 // Prescale by /64
-				else if((cycles >>= 2) < MAX16BIT) OpenTimer3(T3_ON | T3_IDLE_CON | T3_PS_1_256, cycles-1);     // Prescale by /256
-				else        cycles = MAX16BIT - 1, 		OpenTimer3(T3_ON | T3_IDLE_CON | T3_PS_1_256, cycles); // Max period
+				if(cycles < MAX16BIT)              T3CON=(~T_ON &  PS_1_1), PR3=cycles-1, T3CONSET=T_ON;    // No prescale
+				else if((cycles >>= 3) < MAX16BIT) T3CON=(~T_ON &  PS_1_8), PR3=cycles-1, T3CONSET=T_ON;         // Prescale by /8 
+				else if((cycles >>= 3) < MAX16BIT) T3CON=(~T_ON &  PS_1_64), PR3=cycles-1, T3CONSET=T_ON;   	 	// Prescale by /64
+				else if((cycles >>= 2) < MAX16BIT) T3CON=(~T_ON &  PS_1_256), PR3=cycles-1, T3CONSET=T_ON;     	// Prescale by /256
+				else        					   T3CON=(~T_ON &  PS_1_256), PR3=MAX16BIT-1, T3CONSET=T_ON; 		// Max period
 				break;
 			case(TIMER4):
-				if(cycles < MAX16BIT)             		OpenTimer4(T4_ON | T4_IDLE_CON | T4_PS_1_1, cycles-1);         // No prescale
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer4(T4_ON | T4_IDLE_CON | T4_PS_1_8, cycles-1);          // Prescale by /8 
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer4(T4_ON | T4_IDLE_CON | T4_PS_1_64, cycles-1);   	// Prescale by /64
-				else if((cycles >>= 2) < MAX16BIT) OpenTimer4(T4_ON | T4_IDLE_CON | T4_PS_1_256, cycles-1);     // Prescale by /256
-				else        cycles = MAX16BIT - 1, 		OpenTimer4(T4_ON | T4_IDLE_CON | T4_PS_1_256, cycles); // Max period
+				if(cycles < MAX16BIT)             T4CON=(~T_ON & PS_1_1), PR4=cycles-1, T4CONSET=T_ON;           // No prescale
+				else if((cycles >>= 3) < MAX16BIT)T4CON=(~T_ON & PS_1_8), PR4=cycles-1, T4CONSET=T_ON;       // Prescale by /8 
+				else if((cycles >>= 3) < MAX16BIT)T4CON=(~T_ON & PS_1_64), PR4=cycles-1, T4CONSET=T_ON; 	// Prescale by /64
+				else if((cycles >>= 2) < MAX16BIT)T4CON=(~T_ON & PS_1_256), PR4=cycles-1, T4CONSET=T_ON;  // Prescale by /256
+				else        					  T4CON=(~T_ON & PS_1_256), PR4=MAX16BIT-1, T4CONSET=T_ON; // Max period
 				break;
 			case(TIMER5):
-				if(cycles < MAX16BIT)             		OpenTimer5(T5_ON | T5_IDLE_CON | T5_PS_1_1, cycles-1);           // No prescale
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer5(T5_ON | T5_IDLE_CON | T5_PS_1_8, cycles-1);           // Prescale by /8
-				else if((cycles >>= 3) < MAX16BIT) OpenTimer5(T5_ON | T5_IDLE_CON | T5_PS_1_64, cycles-1);  	 	// Prescale by /64
-				else if((cycles >>= 2) < MAX16BIT) OpenTimer5(T5_ON | T5_IDLE_CON | T5_PS_1_256, cycles-1);      	// Prescale by /256
-				else        cycles = MAX16BIT - 1, 		OpenTimer5(T5_ON | T5_IDLE_CON | T5_PS_1_256, cycles); 	// Max period
+				if(cycles < MAX16BIT)             T5CON=(~T_ON & PS_1_1), PR5=cycles-1, T5CONSET=T_ON;             // No prescale
+				else if((cycles >>= 3) < MAX16BIT)T5CON=(~T_ON & PS_1_8), PR5=cycles-1, T5CONSET=T_ON;        // Prescale by /8
+				else if((cycles >>= 3) < MAX16BIT)T5CON=(~T_ON & PS_1_64), PR5=cycles-1, T5CONSET=T_ON;  	// Prescale by /64
+				else if((cycles >>= 2) < MAX16BIT)T5CON=(~T_ON & PS_1_256), PR5=cycles-1, T5CONSET=T_ON;   	// Prescale by /256
+				else        					  T5CON=(~T_ON & PS_1_256), PR5=MAX16BIT-1, T5CONSET=T_ON; 	// Max period
 				break;
 			case(TIMER23):
-				if(cycles < MAX32BIT)						OpenTimer23(T23_ON | T23_IDLE_CON | T23_PS_1_1, cycles-1);	//No prescale
-				else if((cycles >>= 3) < MAX32BIT)	OpenTimer23(T23_ON | T23_IDLE_CON | T23_PS_1_8, cycles-1);	//Prescale by /8
-				else if((cycles >>= 3) < MAX32BIT)	OpenTimer23(T23_ON | T23_IDLE_CON | T23_PS_1_64, cycles-1);	//Prescale by /64
-				else if((cycles >>= 2) < MAX32BIT)	OpenTimer23(T23_ON | T23_IDLE_CON | T23_PS_1_256, cycles-1);	//Prescale by /256
-				else		cycles =MAX32BIT - 1,				OpenTimer23(T23_ON | T23_IDLE_CON | T23_PS_1_256, cycles);	//Max period possible
+				if(cycles < MAX32BIT)				T2CON=(~T_ON & T_32_BIT_MODE_ON | PS_1_1), PR2=cycles-1, T2CONSET=T_ON;	//No prescale
+				else if((cycles >>= 3) < MAX32BIT)	T2CON=(~T_ON & T_32_BIT_MODE_ON | PS_1_8), PR2=cycles-1, T2CONSET=T_ON;  	//Prescale by /8
+				else if((cycles >>= 3) < MAX32BIT)	T2CON=(~T_ON & T_32_BIT_MODE_ON | PS_1_64), PR2=cycles-1, T2CONSET=T_ON; 	//Prescale by /64
+				else if((cycles >>= 2) < MAX32BIT)	T2CON=(~T_ON & T_32_BIT_MODE_ON | PS_1_256), PR2=cycles-1, T2CONSET=T_ON;	//Prescale by /256
+				else								T2CON=(~T_ON & T_32_BIT_MODE_ON | PS_1_256), PR2=MAX16BIT-1, T2CONSET=T_ON;	//Max period possible
 				break;
 			case(TIMER45):
-				if(cycles < MAX32BIT)						OpenTimer45(T45_ON | T45_IDLE_CON | T45_PS_1_1, cycles-1);	//No prescale
-				else if((cycles >>= 3) < MAX32BIT)	OpenTimer45(T45_ON | T45_IDLE_CON | T45_PS_1_8, cycles-1);	//Prescale by /8
-				else if((cycles >>= 3) < MAX32BIT)	OpenTimer45(T45_ON | T45_IDLE_CON | T45_PS_1_64, cycles-1);	//Prescale by /64
-				else if((cycles >>= 2) < MAX32BIT)	OpenTimer45(T45_ON | T45_IDLE_CON | T45_PS_1_256, cycles-1);	//Prescale by /256
-				else		cycles =MAX32BIT - 1,				OpenTimer45(T45_ON | T45_IDLE_CON | T45_PS_1_256, cycles);	//Max period possible
+				if(cycles < MAX32BIT)				T4CON=(~T_ON &  T_32_BIT_MODE_ON | PS_1_1), PR4=cycles-1, T4CONSET=T_ON;	//No prescale
+				else if((cycles >>= 3) < MAX32BIT)	T2CON=(~T_ON &  T_32_BIT_MODE_ON | PS_1_8), PR4=cycles-1, T4CONSET=T_ON;  	//Prescale by /8
+				else if((cycles >>= 3) < MAX32BIT)	T2CON=(~T_ON &  T_32_BIT_MODE_ON | PS_1_64), PR4=cycles-1, T4CONSET=T_ON; 	//Prescale by /64
+				else if((cycles >>= 2) < MAX32BIT)	T2CON=(~T_ON &  T_32_BIT_MODE_ON | PS_1_256), PR4=cycles-1, T4CONSET=T_ON;	//Prescale by /256
+				else								T2CON=(~T_ON &  T_32_BIT_MODE_ON | PS_1_256), PR4=MAX16BIT-1, T4CONSET=T_ON;	//Max period possible
 				break;
 		}
 	}
@@ -151,19 +151,19 @@ void startTimer(uint8_t timerNum, long microseconds){
 void stopTimer(uint8_t timerNum){
 	if (timerNum < 7){
 		switch(timerNum){
-			case TIMER1:CloseTimer1();
+			case TIMER1:IEC0CLR = _IEC0_T1IE_MASK, T1CON = 0x0;
 				break;
-			case TIMER2:CloseTimer2();
+			case TIMER2:IEC0CLR = _IEC0_T2IE_MASK, T2CON = 0x0;
 				break;
-			case TIMER3:CloseTimer3();
+			case TIMER3:IEC0CLR = _IEC0_T3IE_MASK, T3CON = 0x0;
 				break;
-			case TIMER4:CloseTimer4();
+			case TIMER4:IEC0CLR = _IEC0_T4IE_MASK, T4CON = 0x0;
 				break;
-			case TIMER5:CloseTimer5();
+			case TIMER5:IEC0CLR = _IEC0_T5IE_MASK, T5CON = 0x0;
 				break;
-			case TIMER23:CloseTimer23();
+			case TIMER23:IEC0CLR = _IEC0_T3IE_MASK, T2CON = 0x0,T3CON = 0x0;
 				break;
-			case TIMER45:CloseTimer45();
+			case TIMER45:IEC0CLR = _IEC0_T5IE_MASK, T4CON = 0x0, T5CON = 0x0;
 				break;
 		}
 	}
@@ -212,19 +212,19 @@ void setTimerPeriod(uint8_t timerNum, long microseconds){
 */
 void timerReset(uint8_t timerNum){
 	switch(timerNum){
-		case TIMER1: WriteTimer1(0);
+		case TIMER1: TMR1=0;
 			break;
-		case TIMER2: WriteTimer2(0);
+		case TIMER2: TMR2=0;
 			break;
-		case TIMER3: WriteTimer3(0);
+		case TIMER3: TMR3=0;
 			break;
-		case TIMER4: WriteTimer4(0);
+		case TIMER4: TMR4=0;
 			break;
-		case TIMER5: WriteTimer5(0);
+		case TIMER5: TMR5=0;
 			break;
-		case TIMER23: WriteTimer23(0);
+		case TIMER23: TMR2=0;TMR3=0;
 			break;
-		case TIMER45: WriteTimer45(0);
+		case TIMER45: TMR4=0;TMR5=0;
 			break;
 	}
 }
@@ -262,35 +262,55 @@ void attachTimerInterrupt(uint8_t timerNum, void (*userFunc)(void))
                 IEC0bits.T1IE     =	0;
                 IFS0bits.T1IF     =	0;
 				setIntVector(_TIMER_1_VECTOR, (isrFunc) Timer1IntHandler);
-                ConfigIntTimer1(T1_INT_ON | _T1_IPL_IPC | _T1_SPL_IPC );
+                IFS0CLR = _IFS0_T1IF_MASK;
+				IPC1CLR = _IPC1_T1IP_MASK, IPC1SET = ((_T1_IPL_IPC) << _IPC1_T1IP_POSITION);
+				IPC1CLR = _IPC1_T1IS_MASK, IPC1SET = ((_T1_SPL_IPC) << _IPC1_T1IS_POSITION);
+				IEC0SET = (1 << _IEC0_T1IE_POSITION);
                 break;
 
             case TIMER2:
 				IEC0bits.T2IE     =	0;
                 IFS0bits.T2IF     =	0;
                 setIntVector(_TIMER_2_VECTOR, (isrFunc) Timer2IntHandler);
-                ConfigIntTimer2(T2_INT_ON | _T2_IPL_IPC | _T2_SPL_IPC );
+                IFS0CLR = _IFS0_T2IF_MASK;
+				IPC2CLR = _IPC2_T2IP_MASK, IPC2SET = ((_T2_IPL_IPC) << _IPC2_T2IP_POSITION);
+				IPC2CLR = _IPC2_T2IS_MASK, IPC2SET = ((_T2_SPL_IPC) << _IPC2_T2IS_POSITION);
+				IEC0SET = (1 << _IEC0_T2IE_POSITION);
                 break;
 
             case TIMER3:
 				IEC0bits.T3IE     =	0;
                 IFS0bits.T3IF     =	0;
                 setIntVector(_TIMER_3_VECTOR, (isrFunc) Timer3IntHandler);
-				ConfigIntTimer3(T3_INT_ON | _T3_IPL_IPC | _T3_SPL_IPC );
+				IFS0CLR = _IFS0_T3IF_MASK;
+				IPC3CLR = _IPC3_T3IP_MASK, IPC3SET = ((_T3_IPL_IPC) << _IPC3_T3IP_POSITION);
+				IPC3CLR = _IPC3_T3IS_MASK, IPC3SET = ((_T3_SPL_IPC) << _IPC3_T3IS_POSITION);
+				IEC0SET = (1 << _IEC0_T3IE_POSITION);
                 break;
 
             case TIMER4:
 				IEC0bits.T4IE     =	0;
                 IFS0bits.T4IF     =	0;
                 setIntVector(_TIMER_4_VECTOR, (isrFunc) Timer4IntHandler);
-				ConfigIntTimer4(T4_INT_ON | _T4_IPL_IPC | _T4_SPL_IPC );
+				IFS0CLR = _IFS0_T4IF_MASK;
+				IPC4CLR = _IPC4_T4IP_MASK, IPC4SET = ((_T4_IPL_IPC) << _IPC4_T4IP_POSITION);
+				IPC4CLR = _IPC4_T4IS_MASK, IPC4SET = ((_T4_SPL_IPC) << _IPC4_T4IS_POSITION);
+				IEC0SET = (1 << _IEC0_T1IE_POSITION);
                 break;
 
             case TIMER5:
 			    IEC0bits.T5IE     =	0;
                 IFS0bits.T5IF     =	0;
                 setIntVector(_TIMER_5_VECTOR, (isrFunc) Timer5IntHandler);
-				ConfigIntTimer5(T5_INT_ON | _T5_IPL_IPC | _T5_SPL_IPC );
+				IFS0CLR = _IFS0_T5IF_MASK;
+				#if defined(__PIC32MX__)
+					IPC5CLR = _IPC5_T5IP_MASK, IPC5SET = ((_T5_IPL_IPC) << _IPC5_T5IP_POSITION);
+					IPC5CLR = _IPC5_T5IS_MASK, IPC5SET = ((_T5_SPL_IPC) << _IPC5_T5IS_POSITION);
+				#else if defined(__PIC32MZ__)
+					IPC6CLR = _IPC6_T5IP_MASK, IPC5SET = ((_T5_IPL_IPC) << _IPC6_T5IP_POSITION);
+					IPC6CLR = _IPC6_T5IS_MASK, IPC5SET = ((_T5_SPL_IPC) << _IPC6_T5IS_POSITION);
+				#endif
+				IEC0SET = (1 << _IEC0_T1IE_POSITION);
                 break;
 				
         }
@@ -463,62 +483,62 @@ void startPWM(uint8_t timerNum, uint8_t OCnum, uint8_t dutycycle){
 	if (dutycycle<=100){
 		switch(timerNum){
 		case TIMER2:
-			outputCompareValue = (ReadPeriod2() * dutycycle) / 100;
+			outputCompareValue = (PR2 * dutycycle) / 100;
 			switch(OCnum){
 			case OC1:
-				OpenOC1(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC1RS = (outputCompareValue), OC1R = (outputCompareValue), OC1CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			case OC2:
-				OpenOC2(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC2RS = (outputCompareValue), OC2R = (outputCompareValue), OC2CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			case OC3:
-				OpenOC3(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC3RS = (outputCompareValue), OC3R = (outputCompareValue), OC3CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			case OC4:
-				OpenOC4(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC4RS = (outputCompareValue), OC4R = (outputCompareValue), OC4CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			case OC5:
-				OpenOC5(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC5RS = (outputCompareValue), OC5R = (outputCompareValue), OC5CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER2_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			}
 			break;
 		case TIMER3:
-			outputCompareValue = (ReadPeriod3() * dutycycle) / 100;
+			outputCompareValue = (PR3 * dutycycle) / 100;
 			switch(OCnum){
 			case OC1:
-				OpenOC1(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC1RS = (outputCompareValue), OC1R = (outputCompareValue), OC1CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE);
 				break;
 			case OC2:
-				OpenOC2(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC2RS = (outputCompareValue), OC2R = (outputCompareValue), OC2CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC3:
-				OpenOC3(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC3RS = (outputCompareValue), OC3R = (outputCompareValue), OC3CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC4:
-				OpenOC4(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC4RS = (outputCompareValue), OC4R = (outputCompareValue), OC4CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC5:
-				OpenOC5(OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC5RS = (outputCompareValue), OC5R = (outputCompareValue), OC5CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE16 | OC_TIMER3_SRC | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			}
 			break;
 		case TIMER23:
-			outputCompareValue = (ReadPeriod23() * dutycycle) / 100;
+			outputCompareValue = (PR2 * dutycycle) / 100;
 			switch(OCnum){
 			case OC1:
-				OpenOC1(OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC1RS = (outputCompareValue), OC1R = (outputCompareValue), OC1CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC2:
-				OpenOC2(OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC2RS = (outputCompareValue), OC2R = (outputCompareValue), OC2CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC3:
-				OpenOC3(OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC3RS = (outputCompareValue), OC3R = (outputCompareValue), OC3CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC4:
-				OpenOC4(OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC4RS = (outputCompareValue), OC4R = (outputCompareValue), OC4CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			case OC5:
-				OpenOC5(OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE, outputCompareValue, outputCompareValue);
+				OC5RS = (outputCompareValue), OC5R = (outputCompareValue), OC5CON = (OC_ON | OC_IDLE_CON | OC_TIMER_MODE32 | OC_PWM_FAULT_PIN_DISABLE);				
 				break;
 			}
 			break;
@@ -546,15 +566,20 @@ void startPWM(uint8_t timerNum, uint8_t OCnum, uint8_t dutycycle){
 */
 void stopPWM(uint8_t OCnum){
 	switch(OCnum){
-		case OC1: CloseOC1();
+		case OC1: IEC0CLR = _IEC0_OC1IE_MASK;
+			OC1CONCLR = _OC1CON_ON_MASK;
 			break;
-		case OC2: CloseOC2();
+		case OC2: IEC0CLR = _IEC0_OC2IE_MASK;
+			OC2CONCLR = _OC2CON_ON_MASK;
 			break;
-		case OC3: CloseOC3();
+		case OC3: IEC0CLR = _IEC0_OC3IE_MASK;
+			OC1CONCLR = _OC1CON_ON_MASK;
 			break;
-		case OC4: CloseOC4();
+		case OC4: IEC0CLR = _IEC0_OC4IE_MASK;
+			OC1CONCLR = _OC1CON_ON_MASK;
 			break;
-		case OC5: CloseOC5();
+		case OC5: IEC0CLR = _IEC0_OC5IE_MASK;
+			OC1CONCLR = _OC1CON_ON_MASK;
 			break;
 	}
 }
@@ -587,28 +612,28 @@ void setDutyCycle(uint8_t OCnum, float dutycycle){
 		switch(OCnum){
 		case OC1:
 			timerSrc = (OC1CON>> _OC1CON_OCTSEL_POSITION) & 1;	//Src = Timer2 if 0, Timer3 if 1
-			outputCompareValue = (ReadPeriod2() * !timerSrc + ReadPeriod3() * timerSrc) * dutycycle / 100;
-			SetDCOC1PWM(outputCompareValue);
+			outputCompareValue = (PR2 * !timerSrc + PR3 * timerSrc) * dutycycle / 100;
+			OC1RS=outputCompareValue;
 			break;
 		case OC2:
 			timerSrc = (OC2CON>> _OC2CON_OCTSEL_POSITION) & 1;	//Src = Timer2 if 0, Timer3 if 1
-			outputCompareValue = (ReadPeriod2() * !timerSrc + ReadPeriod3() * timerSrc) * dutycycle / 100;
-			SetDCOC2PWM(outputCompareValue);
+			outputCompareValue = (PR2 * !timerSrc + PR3 * timerSrc) * dutycycle / 100;
+			OC2RS=outputCompareValue;
 			break;
 		case OC3:
 			timerSrc = (OC3CON>> _OC3CON_OCTSEL_POSITION) & 1;	//Src = Timer2 if 0, Timer3 if 1
-			outputCompareValue = (ReadPeriod2() * !timerSrc + ReadPeriod3() * timerSrc) * dutycycle / 100;
-			SetDCOC3PWM(outputCompareValue);
+			outputCompareValue = (PR2 * !timerSrc + PR3 * timerSrc) * dutycycle / 100;
+			OC3RS=outputCompareValue;
 			break;
 		case OC4:
 			timerSrc = (OC4CON>> _OC4CON_OCTSEL_POSITION) & 1;	//Src = Timer2 if 0, Timer3 if 1
-			outputCompareValue = (ReadPeriod2() * !timerSrc + ReadPeriod3() * timerSrc) * dutycycle / 100;
-			SetDCOC4PWM(outputCompareValue);
+			outputCompareValue = (PR2 * !timerSrc + PR3 * timerSrc) * dutycycle / 100;
+			OC4RS=outputCompareValue;
 			break;
 		case OC5:
 			timerSrc = (OC5CON>> _OC5CON_OCTSEL_POSITION) & 1;	//Src = Timer2 if 0, Timer3 if 1
-			outputCompareValue = (ReadPeriod2() * !timerSrc + ReadPeriod3() * timerSrc) * dutycycle / 100;
-			SetDCOC5PWM(outputCompareValue);
+			outputCompareValue = (PR2 * !timerSrc + PR3 * timerSrc) * dutycycle / 100;
+			OC5RS=outputCompareValue;
 			break;
 		}
 	}
